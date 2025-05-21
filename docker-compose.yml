@@ -1,0 +1,141 @@
+version: '3.8'
+
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    environment:
+      - CLUSTER_NAME=hadoop-cluster
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    volumes:
+      - namenode:/hadoop/dfs/name
+    networks:
+      - hadoop
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode
+    environment:
+      - CLUSTER_NAME=hadoop-cluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+    ports:
+      - "9864:9864"
+    volumes:
+      - datanode:/hadoop/dfs/data
+    depends_on:
+      - namenode
+    networks:
+      - hadoop
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    container_name: resourcemanager
+    environment:
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+    ports:
+      - "8088:8088"
+    networks:
+      - hadoop
+    depends_on:
+      - namenode
+
+  nodemanager:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: nodemanager
+    networks:
+      - hadoop
+    depends_on:
+      - resourcemanager
+
+  historyserver:
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    container_name: historyserver
+    ports:
+      - "8188:8188"
+    networks:
+      - hadoop
+    depends_on:
+      - namenode
+      - datanode
+
+  spark-master:
+    image: bde2020/spark-master:3.1.1-hadoop3.2
+    container_name: spark-master
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+    networks:
+      - hadoop
+
+  spark-worker:
+    image: bde2020/spark-worker:3.1.1-hadoop3.2
+    container_name: spark-worker
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+    depends_on:
+      - spark-master
+    ports:
+      - "8081:8081"
+    networks:
+      - hadoop
+
+  hive-server:
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    container_name: hive-server
+    environment:
+      - HIVE_DB=hive
+      - HIVE_USER=hiveuser
+      - HIVE_PASSWORD=hivepw
+    ports:
+      - "10000:10000"
+    depends_on:
+      - namenode
+      - datanode
+    networks:
+      - hadoop
+
+  nifi:
+    image: apache/nifi:latest
+    container_name: nifi
+    ports:
+      - "8085:8080"
+    networks:
+      - hadoop
+
+  airflow:
+    image: puckel/docker-airflow
+    container_name: airflow
+    environment:
+      - LOAD_EX=n
+    ports:
+      - "8089:8080"
+    networks:
+      - hadoop
+
+  atlas:
+    image: apache/atlas:latest
+    container_name: atlas
+    ports:
+      - "21000:21000"
+    networks:
+      - hadoop
+
+  superset:
+    image: apache/superset
+    container_name: superset
+    ports:
+      - "8088:8088"
+    networks:
+      - hadoop
+
+volumes:
+  namenode:
+  datanode:
+
+networks:
+  hadoop:
+    driver: bridge

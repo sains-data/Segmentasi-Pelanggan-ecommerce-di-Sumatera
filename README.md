@@ -77,8 +77,8 @@ Sistem menggunakan:
 1. Clone repositori:
 
 ```bash
-git clone https://github.com/sains-data/bigdata-spark.git
-cd bigdata-spark
+git clone https://github.com/sains-data/Segmentasi-Pelanggan-ecommerce-di-Sumatera.git
+cd Segmentasi-Pelanggan-ecommerce-di-Sumatera
 ```
 
 2. Jalankan Docker Compose:
