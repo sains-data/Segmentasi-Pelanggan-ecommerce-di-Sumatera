@@ -1,0 +1,501 @@
+id_seller,kota_kabupaten_seller,provinsi_seller
+SEL000001,Pelalawan,Riau
+SEL000002,Metro,Lampung
+SEL000003,Bengkulu,Bengkulu
+SEL000004,Bengkulu,Bengkulu
+SEL000005,Tebing Tinggi,Sumatera Utara
+SEL000006,Kerinci,Jambi
+SEL000007,Bangka Selatan,Kepulauan Bangka Belitung
+SEL000008,Subulussalam,Aceh
+SEL000009,Muaro Jambi,Jambi
+SEL000010,Natuna,Kepulauan Riau
+SEL000011,Sabang,Aceh
+SEL000012,Batam,Kepulauan Riau
+SEL000013,Belitung,Kepulauan Bangka Belitung
+SEL000014,Bangka Barat,Kepulauan Bangka Belitung
+SEL000015,Tebing Tinggi,Sumatera Utara
+SEL000016,Indragiri Hilir,Riau
+SEL000017,Belitung,Kepulauan Bangka Belitung
+SEL000018,Lubuklinggau,Sumatera Selatan
+SEL000019,Belitung,Kepulauan Bangka Belitung
+SEL000020,Pekanbaru,Riau
+SEL000021,Bengkulu,Bengkulu
+SEL000022,Musi Banyuasin,Sumatera Selatan
+SEL000023,Indragiri Hilir,Riau
+SEL000024,Banda Aceh,Aceh
+SEL000025,Solok,Sumatera Barat
+SEL000026,Sungai Penuh,Jambi
+SEL000027,Merangin,Jambi
+SEL000028,Bungo,Jambi
+SEL000029,Payakumbuh,Sumatera Barat
+SEL000030,Kampar,Riau
+SEL000031,Padangpanjang,Sumatera Barat
+SEL000032,Tebing Tinggi,Sumatera Utara
+SEL000033,Batanghari,Jambi
+SEL000034,Belitung,Kepulauan Bangka Belitung
+SEL000035,Belitung,Kepulauan Bangka Belitung
+SEL000036,Medan,Sumatera Utara
+SEL000037,Pariaman,Sumatera Barat
+SEL000038,Tebing Tinggi,Sumatera Utara
+SEL000039,Langsa,Aceh
+SEL000040,Tebing Tinggi,Sumatera Utara
+SEL000041,Sungai Penuh,Jambi
+SEL000042,Tebing Tinggi,Sumatera Utara
+SEL000043,Lampung Barat,Lampung
+SEL000044,Sibolga,Sumatera Utara
+SEL000045,Bangka Selatan,Kepulauan Bangka Belitung
+SEL000046,Pangkalpinang,Kepulauan Bangka Belitung
+SEL000047,Lampung Timur,Lampung
+SEL000048,Bintan,Kepulauan Riau
+SEL000049,Padangsidimpuan,Sumatera Utara
+SEL000050,Padangsidimpuan,Sumatera Utara
+SEL000051,Payakumbuh,Sumatera Barat
+SEL000052,Indragiri Hulu,Riau
+SEL000053,Merangin,Jambi
+SEL000054,Subulussalam,Aceh
+SEL000055,Medan,Sumatera Utara
+SEL000056,Bukittinggi,Sumatera Barat
+SEL000057,Lubuklinggau,Sumatera Selatan
+SEL000058,Belitung Timur,Kepulauan Bangka Belitung
+SEL000059,Bangka,Kepulauan Bangka Belitung
+SEL000060,Lampung Utara,Lampung
+SEL000061,Palembang,Sumatera Selatan
+SEL000062,Ogan Komering Ilir,Sumatera Selatan
+SEL000063,Kepahiang,Bengkulu
+SEL000064,Bengkulu,Bengkulu
+SEL000065,Belitung Timur,Kepulauan Bangka Belitung
+SEL000066,Rejang Lebong,Bengkulu
+SEL000067,Bukittinggi,Sumatera Barat
+SEL000068,Natuna,Kepulauan Riau
+SEL000069,Lampung Utara,Lampung
+SEL000070,Natuna,Kepulauan Riau
+SEL000071,Tanjungbalai,Sumatera Utara
+SEL000072,Pelalawan,Riau
+SEL000073,Lampung Tengah,Lampung
+SEL000074,Lampung Selatan,Lampung
+SEL000075,Musi Banyuasin,Sumatera Selatan
+SEL000076,Lubuklinggau,Sumatera Selatan
+SEL000077,Banda Aceh,Aceh
+SEL000078,Metro,Lampung
+SEL000079,Subulussalam,Aceh
+SEL000080,Palembang,Sumatera Selatan
+SEL000081,Musi Banyuasin,Sumatera Selatan
+SEL000082,Prabumulih,Sumatera Selatan
+SEL000083,Lhokseumawe,Aceh
+SEL000084,Bandar Lampung,Lampung
+SEL000085,Pariaman,Sumatera Barat
+SEL000086,Sibolga,Sumatera Utara
+SEL000087,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000088,Sibolga,Sumatera Utara
+SEL000089,Payakumbuh,Sumatera Barat
+SEL000090,Lampung Tengah,Lampung
+SEL000091,Belitung,Kepulauan Bangka Belitung
+SEL000092,Palembang,Sumatera Selatan
+SEL000093,Tanjungpinang,Kepulauan Riau
+SEL000094,Lubuklinggau,Sumatera Selatan
+SEL000095,Kerinci,Jambi
+SEL000096,Bengkulu Selatan,Bengkulu
+SEL000097,Banda Aceh,Aceh
+SEL000098,Lhokseumawe,Aceh
+SEL000099,Solok,Sumatera Barat
+SEL000100,Muaro Jambi,Jambi
+SEL000101,Rejang Lebong,Bengkulu
+SEL000102,Batanghari,Jambi
+SEL000103,Bengkulu,Bengkulu
+SEL000104,Bangka Barat,Kepulauan Bangka Belitung
+SEL000105,Pematangsiantar,Sumatera Utara
+SEL000106,Merangin,Jambi
+SEL000107,Bungo,Jambi
+SEL000108,Banda Aceh,Aceh
+SEL000109,Batanghari,Jambi
+SEL000110,Solok,Sumatera Barat
+SEL000111,Tebing Tinggi,Sumatera Utara
+SEL000112,Sawahlunto,Sumatera Barat
+SEL000113,Lingga,Kepulauan Riau
+SEL000114,Padangsidimpuan,Sumatera Utara
+SEL000115,Medan,Sumatera Utara
+SEL000116,Muaro Jambi,Jambi
+SEL000117,Pagar Alam,Sumatera Selatan
+SEL000118,Binjai,Sumatera Utara
+SEL000119,Batam,Kepulauan Riau
+SEL000120,Tanjungpinang,Kepulauan Riau
+SEL000121,Pekanbaru,Riau
+SEL000122,Batanghari,Jambi
+SEL000123,Belitung Timur,Kepulauan Bangka Belitung
+SEL000124,Belitung Timur,Kepulauan Bangka Belitung
+SEL000125,Tebing Tinggi,Sumatera Utara
+SEL000126,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000127,Bangka Barat,Kepulauan Bangka Belitung
+SEL000128,Belitung,Kepulauan Bangka Belitung
+SEL000129,Jambi,Jambi
+SEL000130,Kepahiang,Bengkulu
+SEL000131,Lhokseumawe,Aceh
+SEL000132,Bengkulu,Bengkulu
+SEL000133,Pagar Alam,Sumatera Selatan
+SEL000134,Langsa,Aceh
+SEL000135,Medan,Sumatera Utara
+SEL000136,Tanjungpinang,Kepulauan Riau
+SEL000137,Pematangsiantar,Sumatera Utara
+SEL000138,Sabang,Aceh
+SEL000139,Prabumulih,Sumatera Selatan
+SEL000140,Pangkalpinang,Kepulauan Bangka Belitung
+SEL000141,Sungai Penuh,Jambi
+SEL000142,Lingga,Kepulauan Riau
+SEL000143,Pekanbaru,Riau
+SEL000144,Lubuklinggau,Sumatera Selatan
+SEL000145,Solok,Sumatera Barat
+SEL000146,Natuna,Kepulauan Riau
+SEL000147,Tanjungbalai,Sumatera Utara
+SEL000148,Sabang,Aceh
+SEL000149,Kampar,Riau
+SEL000150,Bukittinggi,Sumatera Barat
+SEL000151,Bangka,Kepulauan Bangka Belitung
+SEL000152,Bengkulu,Bengkulu
+SEL000153,Bangka Barat,Kepulauan Bangka Belitung
+SEL000154,Natuna,Kepulauan Riau
+SEL000155,Indragiri Hilir,Riau
+SEL000156,Bangka,Kepulauan Bangka Belitung
+SEL000157,Sabang,Aceh
+SEL000158,Indragiri Hulu,Riau
+SEL000159,Rejang Lebong,Bengkulu
+SEL000160,Bangka Barat,Kepulauan Bangka Belitung
+SEL000161,Lubuklinggau,Sumatera Selatan
+SEL000162,Bengkulu Utara,Bengkulu
+SEL000163,Bengkulu Utara,Bengkulu
+SEL000164,Batanghari,Jambi
+SEL000165,Indragiri Hulu,Riau
+SEL000166,Tanjungbalai,Sumatera Utara
+SEL000167,Bengkulu Selatan,Bengkulu
+SEL000168,Karimun,Kepulauan Riau
+SEL000169,Banda Aceh,Aceh
+SEL000170,Bengkulu Utara,Bengkulu
+SEL000171,Kampar,Riau
+SEL000172,Merangin,Jambi
+SEL000173,Sawahlunto,Sumatera Barat
+SEL000174,Pariaman,Sumatera Barat
+SEL000175,Tanjungpinang,Kepulauan Riau
+SEL000176,Dumai,Riau
+SEL000177,Langsa,Aceh
+SEL000178,Kampar,Riau
+SEL000179,Banda Aceh,Aceh
+SEL000180,Rejang Lebong,Bengkulu
+SEL000181,Bengkalis,Riau
+SEL000182,Sibolga,Sumatera Utara
+SEL000183,Langsa,Aceh
+SEL000184,Tebing Tinggi,Sumatera Utara
+SEL000185,Sabang,Aceh
+SEL000186,Padangsidimpuan,Sumatera Utara
+SEL000187,Indragiri Hilir,Riau
+SEL000188,Bukittinggi,Sumatera Barat
+SEL000189,Tebing Tinggi,Sumatera Utara
+SEL000190,Pagar Alam,Sumatera Selatan
+SEL000191,Bengkulu Tengah,Bengkulu
+SEL000192,Belitung,Kepulauan Bangka Belitung
+SEL000193,Bungo,Jambi
+SEL000194,Pelalawan,Riau
+SEL000195,Bukittinggi,Sumatera Barat
+SEL000196,Bengkulu Selatan,Bengkulu
+SEL000197,Pelalawan,Riau
+SEL000198,Indragiri Hilir,Riau
+SEL000199,Lampung Barat,Lampung
+SEL000200,Bengkulu,Bengkulu
+SEL000201,Jambi,Jambi
+SEL000202,Bengkulu Tengah,Bengkulu
+SEL000203,Padang,Sumatera Barat
+SEL000204,Sabang,Aceh
+SEL000205,Bangka Barat,Kepulauan Bangka Belitung
+SEL000206,Indragiri Hilir,Riau
+SEL000207,Padangsidimpuan,Sumatera Utara
+SEL000208,Padangpanjang,Sumatera Barat
+SEL000209,Sungai Penuh,Jambi
+SEL000210,Kepahiang,Bengkulu
+SEL000211,Sabang,Aceh
+SEL000212,Pangkalpinang,Kepulauan Bangka Belitung
+SEL000213,Karimun,Kepulauan Riau
+SEL000214,Pagar Alam,Sumatera Selatan
+SEL000215,Indragiri Hilir,Riau
+SEL000216,Kampar,Riau
+SEL000217,Muaro Jambi,Jambi
+SEL000218,Lampung Selatan,Lampung
+SEL000219,Sungai Penuh,Jambi
+SEL000220,Metro,Lampung
+SEL000221,Metro,Lampung
+SEL000222,Langsa,Aceh
+SEL000223,Lampung Selatan,Lampung
+SEL000224,Indragiri Hulu,Riau
+SEL000225,Belitung,Kepulauan Bangka Belitung
+SEL000226,Padang,Sumatera Barat
+SEL000227,Merangin,Jambi
+SEL000228,Lahat,Sumatera Selatan
+SEL000229,Merangin,Jambi
+SEL000230,Padangsidimpuan,Sumatera Utara
+SEL000231,Belitung Timur,Kepulauan Bangka Belitung
+SEL000232,Merangin,Jambi
+SEL000233,Bengkulu,Bengkulu
+SEL000234,Sibolga,Sumatera Utara
+SEL000235,Binjai,Sumatera Utara
+SEL000236,Batanghari,Jambi
+SEL000237,Pelalawan,Riau
+SEL000238,Belitung Timur,Kepulauan Bangka Belitung
+SEL000239,Lingga,Kepulauan Riau
+SEL000240,Bangka,Kepulauan Bangka Belitung
+SEL000241,Lampung Tengah,Lampung
+SEL000242,Langsa,Aceh
+SEL000243,Lhokseumawe,Aceh
+SEL000244,Bangka Selatan,Kepulauan Bangka Belitung
+SEL000245,Bintan,Kepulauan Riau
+SEL000246,Sabang,Aceh
+SEL000247,Dumai,Riau
+SEL000248,Tanjungbalai,Sumatera Utara
+SEL000249,Merangin,Jambi
+SEL000250,Bengkulu Selatan,Bengkulu
+SEL000251,Kerinci,Jambi
+SEL000252,Kampar,Riau
+SEL000253,Kaur,Bengkulu
+SEL000254,Lingga,Kepulauan Riau
+SEL000255,Bintan,Kepulauan Riau
+SEL000256,Pematangsiantar,Sumatera Utara
+SEL000257,Lampung Tengah,Lampung
+SEL000258,Dumai,Riau
+SEL000259,Palembang,Sumatera Selatan
+SEL000260,Pagar Alam,Sumatera Selatan
+SEL000261,Lampung Utara,Lampung
+SEL000262,Indragiri Hulu,Riau
+SEL000263,Prabumulih,Sumatera Selatan
+SEL000264,Indragiri Hilir,Riau
+SEL000265,Pangkalpinang,Kepulauan Bangka Belitung
+SEL000266,Medan,Sumatera Utara
+SEL000267,Batam,Kepulauan Riau
+SEL000268,Indragiri Hilir,Riau
+SEL000269,Langsa,Aceh
+SEL000270,Lampung Selatan,Lampung
+SEL000271,Belitung,Kepulauan Bangka Belitung
+SEL000272,Medan,Sumatera Utara
+SEL000273,Bangka Selatan,Kepulauan Bangka Belitung
+SEL000274,Bukittinggi,Sumatera Barat
+SEL000275,Dumai,Riau
+SEL000276,Palembang,Sumatera Selatan
+SEL000277,Lhokseumawe,Aceh
+SEL000278,Subulussalam,Aceh
+SEL000279,Bengkulu,Bengkulu
+SEL000280,Merangin,Jambi
+SEL000281,Karimun,Kepulauan Riau
+SEL000282,Pekanbaru,Riau
+SEL000283,Lubuklinggau,Sumatera Selatan
+SEL000284,Tanjungpinang,Kepulauan Riau
+SEL000285,Tebing Tinggi,Sumatera Utara
+SEL000286,Muaro Jambi,Jambi
+SEL000287,Lingga,Kepulauan Riau
+SEL000288,Pekanbaru,Riau
+SEL000289,Lampung Timur,Lampung
+SEL000290,Kerinci,Jambi
+SEL000291,Solok,Sumatera Barat
+SEL000292,Sabang,Aceh
+SEL000293,Pelalawan,Riau
+SEL000294,Bengkulu Selatan,Bengkulu
+SEL000295,Medan,Sumatera Utara
+SEL000296,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000297,Indragiri Hulu,Riau
+SEL000298,Jambi,Jambi
+SEL000299,Kaur,Bengkulu
+SEL000300,Pagar Alam,Sumatera Selatan
+SEL000301,Lampung Tengah,Lampung
+SEL000302,Padang,Sumatera Barat
+SEL000303,Tanjungbalai,Sumatera Utara
+SEL000304,Tanjungpinang,Kepulauan Riau
+SEL000305,Sungai Penuh,Jambi
+SEL000306,Pariaman,Sumatera Barat
+SEL000307,Bukittinggi,Sumatera Barat
+SEL000308,Langsa,Aceh
+SEL000309,Pelalawan,Riau
+SEL000310,Dumai,Riau
+SEL000311,Padangpanjang,Sumatera Barat
+SEL000312,Bandar Lampung,Lampung
+SEL000313,Metro,Lampung
+SEL000314,Batam,Kepulauan Riau
+SEL000315,Banda Aceh,Aceh
+SEL000316,Bengkalis,Riau
+SEL000317,Muaro Jambi,Jambi
+SEL000318,Rejang Lebong,Bengkulu
+SEL000319,Tebing Tinggi,Sumatera Utara
+SEL000320,Payakumbuh,Sumatera Barat
+SEL000321,Bengkulu,Bengkulu
+SEL000322,Padangpanjang,Sumatera Barat
+SEL000323,Subulussalam,Aceh
+SEL000324,Solok,Sumatera Barat
+SEL000325,Bengkulu,Bengkulu
+SEL000326,Tebing Tinggi,Sumatera Utara
+SEL000327,Bukittinggi,Sumatera Barat
+SEL000328,Binjai,Sumatera Utara
+SEL000329,Bengkulu,Bengkulu
+SEL000330,Rejang Lebong,Bengkulu
+SEL000331,Padangpanjang,Sumatera Barat
+SEL000332,Belitung,Kepulauan Bangka Belitung
+SEL000333,Belitung,Kepulauan Bangka Belitung
+SEL000334,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000335,Bintan,Kepulauan Riau
+SEL000336,Metro,Lampung
+SEL000337,Lingga,Kepulauan Riau
+SEL000338,Batam,Kepulauan Riau
+SEL000339,Lampung Selatan,Lampung
+SEL000340,Sawahlunto,Sumatera Barat
+SEL000341,Lampung Barat,Lampung
+SEL000342,Pagar Alam,Sumatera Selatan
+SEL000343,Batam,Kepulauan Riau
+SEL000344,Langsa,Aceh
+SEL000345,Bengkulu Selatan,Bengkulu
+SEL000346,Kepahiang,Bengkulu
+SEL000347,Bangka Selatan,Kepulauan Bangka Belitung
+SEL000348,Tebing Tinggi,Sumatera Utara
+SEL000349,Tanjungpinang,Kepulauan Riau
+SEL000350,Padang,Sumatera Barat
+SEL000351,Kampar,Riau
+SEL000352,Belitung Timur,Kepulauan Bangka Belitung
+SEL000353,Sibolga,Sumatera Utara
+SEL000354,Lampung Selatan,Lampung
+SEL000355,Natuna,Kepulauan Riau
+SEL000356,Padang,Sumatera Barat
+SEL000357,Bangka,Kepulauan Bangka Belitung
+SEL000358,Bangka,Kepulauan Bangka Belitung
+SEL000359,Bukittinggi,Sumatera Barat
+SEL000360,Subulussalam,Aceh
+SEL000361,Lingga,Kepulauan Riau
+SEL000362,Binjai,Sumatera Utara
+SEL000363,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000364,Padangsidimpuan,Sumatera Utara
+SEL000365,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000366,Padangsidimpuan,Sumatera Utara
+SEL000367,Batanghari,Jambi
+SEL000368,Bangka,Kepulauan Bangka Belitung
+SEL000369,Padang,Sumatera Barat
+SEL000370,Bengkulu Tengah,Bengkulu
+SEL000371,Dumai,Riau
+SEL000372,Kampar,Riau
+SEL000373,Sibolga,Sumatera Utara
+SEL000374,Sawahlunto,Sumatera Barat
+SEL000375,Bandar Lampung,Lampung
+SEL000376,Kaur,Bengkulu
+SEL000377,Pangkalpinang,Kepulauan Bangka Belitung
+SEL000378,Prabumulih,Sumatera Selatan
+SEL000379,Solok,Sumatera Barat
+SEL000380,Muaro Jambi,Jambi
+SEL000381,Palembang,Sumatera Selatan
+SEL000382,Banda Aceh,Aceh
+SEL000383,Banda Aceh,Aceh
+SEL000384,Banda Aceh,Aceh
+SEL000385,Lubuklinggau,Sumatera Selatan
+SEL000386,Tanjungpinang,Kepulauan Riau
+SEL000387,Tanjungbalai,Sumatera Utara
+SEL000388,Indragiri Hilir,Riau
+SEL000389,Pematangsiantar,Sumatera Utara
+SEL000390,Belitung,Kepulauan Bangka Belitung
+SEL000391,Palembang,Sumatera Selatan
+SEL000392,Tanjungpinang,Kepulauan Riau
+SEL000393,Padangpanjang,Sumatera Barat
+SEL000394,Prabumulih,Sumatera Selatan
+SEL000395,Tebing Tinggi,Sumatera Utara
+SEL000396,Belitung,Kepulauan Bangka Belitung
+SEL000397,Muaro Jambi,Jambi
+SEL000398,Batanghari,Jambi
+SEL000399,Padang,Sumatera Barat
+SEL000400,Belitung Timur,Kepulauan Bangka Belitung
+SEL000401,Sawahlunto,Sumatera Barat
+SEL000402,Lingga,Kepulauan Riau
+SEL000403,Lampung Barat,Lampung
+SEL000404,Lampung Tengah,Lampung
+SEL000405,Binjai,Sumatera Utara
+SEL000406,Pariaman,Sumatera Barat
+SEL000407,Kerinci,Jambi
+SEL000408,Tanjungpinang,Kepulauan Riau
+SEL000409,Prabumulih,Sumatera Selatan
+SEL000410,Bandar Lampung,Lampung
+SEL000411,Bangka Selatan,Kepulauan Bangka Belitung
+SEL000412,Bandar Lampung,Lampung
+SEL000413,Subulussalam,Aceh
+SEL000414,Banda Aceh,Aceh
+SEL000415,Sungai Penuh,Jambi
+SEL000416,Bengkulu Selatan,Bengkulu
+SEL000417,Palembang,Sumatera Selatan
+SEL000418,Musi Banyuasin,Sumatera Selatan
+SEL000419,Bangka Barat,Kepulauan Bangka Belitung
+SEL000420,Bangka,Kepulauan Bangka Belitung
+SEL000421,Bengkulu Tengah,Bengkulu
+SEL000422,Tanjungpinang,Kepulauan Riau
+SEL000423,Indragiri Hilir,Riau
+SEL000424,Pariaman,Sumatera Barat
+SEL000425,Kerinci,Jambi
+SEL000426,Bengkalis,Riau
+SEL000427,Musi Banyuasin,Sumatera Selatan
+SEL000428,Lhokseumawe,Aceh
+SEL000429,Muaro Jambi,Jambi
+SEL000430,Pariaman,Sumatera Barat
+SEL000431,Karimun,Kepulauan Riau
+SEL000432,Subulussalam,Aceh
+SEL000433,Sabang,Aceh
+SEL000434,Sabang,Aceh
+SEL000435,Dumai,Riau
+SEL000436,Bengkulu Utara,Bengkulu
+SEL000437,Lingga,Kepulauan Riau
+SEL000438,Lampung Tengah,Lampung
+SEL000439,Ogan Komering Ilir,Sumatera Selatan
+SEL000440,Subulussalam,Aceh
+SEL000441,Bangka,Kepulauan Bangka Belitung
+SEL000442,Padang,Sumatera Barat
+SEL000443,Lhokseumawe,Aceh
+SEL000444,Banda Aceh,Aceh
+SEL000445,Bengkulu Selatan,Bengkulu
+SEL000446,Pangkalpinang,Kepulauan Bangka Belitung
+SEL000447,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000448,Lhokseumawe,Aceh
+SEL000449,Muaro Jambi,Jambi
+SEL000450,Sawahlunto,Sumatera Barat
+SEL000451,Lampung Selatan,Lampung
+SEL000452,Indragiri Hulu,Riau
+SEL000453,Indragiri Hilir,Riau
+SEL000454,Indragiri Hulu,Riau
+SEL000455,Pematangsiantar,Sumatera Utara
+SEL000456,Sungai Penuh,Jambi
+SEL000457,Solok,Sumatera Barat
+SEL000458,Binjai,Sumatera Utara
+SEL000459,Bengkulu Utara,Bengkulu
+SEL000460,Merangin,Jambi
+SEL000461,Sawahlunto,Sumatera Barat
+SEL000462,Natuna,Kepulauan Riau
+SEL000463,Bungo,Jambi
+SEL000464,Sungai Penuh,Jambi
+SEL000465,Langsa,Aceh
+SEL000466,Kepahiang,Bengkulu
+SEL000467,Padangpanjang,Sumatera Barat
+SEL000468,Bangka Selatan,Kepulauan Bangka Belitung
+SEL000469,Pekanbaru,Riau
+SEL000470,Muaro Jambi,Jambi
+SEL000471,Jambi,Jambi
+SEL000472,Lampung Utara,Lampung
+SEL000473,Sabang,Aceh
+SEL000474,Merangin,Jambi
+SEL000475,Rejang Lebong,Bengkulu
+SEL000476,Ogan Komering Ilir,Sumatera Selatan
+SEL000477,Ogan Komering Ilir,Sumatera Selatan
+SEL000478,Muaro Jambi,Jambi
+SEL000479,Langsa,Aceh
+SEL000480,Kepahiang,Bengkulu
+SEL000481,Kampar,Riau
+SEL000482,Pagar Alam,Sumatera Selatan
+SEL000483,Belitung,Kepulauan Bangka Belitung
+SEL000484,Padangpanjang,Sumatera Barat
+SEL000485,Pelalawan,Riau
+SEL000486,Banda Aceh,Aceh
+SEL000487,Lampung Selatan,Lampung
+SEL000488,Bungo,Jambi
+SEL000489,Muaro Jambi,Jambi
+SEL000490,Kerinci,Jambi
+SEL000491,Lingga,Kepulauan Riau
+SEL000492,Pangkalpinang,Kepulauan Bangka Belitung
+SEL000493,Kampar,Riau
+SEL000494,Padangsidimpuan,Sumatera Utara
+SEL000495,Indragiri Hulu,Riau
+SEL000496,Bangka Tengah,Kepulauan Bangka Belitung
+SEL000497,Pariaman,Sumatera Barat
+SEL000498,Batanghari,Jambi
+SEL000499,Payakumbuh,Sumatera Barat
+SEL000500,Natuna,Kepulauan Riau
