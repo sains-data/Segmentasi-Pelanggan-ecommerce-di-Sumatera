@@ -58,6 +58,7 @@ Sistem menggunakan:
 4. **Clustering**: Segmentasi pelanggan menggunakan K-Means di Spark MLlib.
 5. **Data Aggregation**: Menyimpan hasil di gold layer sebagai tabel Hive.
 6. **Visualisasi**: Dashboard Superset untuk menggambarkan karakteristik tiap segmen.
+![Pipeline](./gambar/pipeline.jpeg)
 
 ## 📁 Struktur Direktori
 
