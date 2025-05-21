@@ -1,141 +1,277 @@
-version: '3.8'
+version: '3'
 
 services:
   namenode:
-    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    build:
+      context: .
+      dockerfile: docker-compose/hadoop/Dockerfile
+    image: hadoop-ecommerce-hadoop:latest
     container_name: namenode
-    environment:
-      - CLUSTER_NAME=hadoop-cluster
+    hostname: namenode
     ports:
-      - "9870:9870"
-      - "9000:9000"
-    volumes:
-      - namenode:/hadoop/dfs/name
-    networks:
-      - hadoop
-
-  datanode:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
-    container_name: datanode
+      - "9870:9870"   # NameNode web UI
+      - "8020:8020"   # NameNode IPC
     environment:
-      - CLUSTER_NAME=hadoop-cluster
-      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
-    ports:
-      - "9864:9864"
+      - NODE_TYPE=namenode
     volumes:
-      - datanode:/hadoop/dfs/data
-    depends_on:
-      - namenode
+      - ./data:/data
+      - ./logs/hadoop/namenode:/home/hadoop/hadoop/logs
     networks:
-      - hadoop
+      - hadoop_network
 
   resourcemanager:
-    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    build:
+      context: .
+      dockerfile: docker-compose/hadoop/Dockerfile
+    image: hadoop-ecommerce-hadoop:latest
     container_name: resourcemanager
+    hostname: resourcemanager
+    ports:
+      - "8088:8088"   # ResourceManager web UI
+      - "8032:8032"   # ResourceManager IPC
     environment:
-      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
-    ports:
-      - "8088:8088"
-    networks:
-      - hadoop
+      - NODE_TYPE=resourcemanager
+    volumes:
+      - ./logs/hadoop/resourcemanager:/home/hadoop/hadoop/logs
     depends_on:
       - namenode
-
-  nodemanager:
-    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
-    container_name: nodemanager
     networks:
-      - hadoop
-    depends_on:
-      - resourcemanager
+      - hadoop_network
 
-  historyserver:
-    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
-    container_name: historyserver
-    ports:
-      - "8188:8188"
-    networks:
-      - hadoop
+  datanode1:
+    build:
+      context: .
+      dockerfile: docker-compose/hadoop/Dockerfile
+    image: hadoop-ecommerce-hadoop:latest
+    container_name: datanode1
+    hostname: datanode1
+    environment:
+      - NODE_TYPE=datanode
+    volumes:
+      - ./logs/hadoop/datanode1:/home/hadoop/hadoop/logs
     depends_on:
       - namenode
-      - datanode
+    networks:
+      - hadoop_network
+
+  datanode2:
+    build:
+      context: .
+      dockerfile: docker-compose/hadoop/Dockerfile
+    image: hadoop-ecommerce-hadoop:latest
+    container_name: datanode2
+    hostname: datanode2
+    environment:
+      - NODE_TYPE=datanode
+    volumes:
+      - ./logs/hadoop/datanode2:/home/hadoop/hadoop/logs
+    depends_on:
+      - namenode
+    networks:
+      - hadoop_network
+
+  datanode3:
+    build:
+      context: .
+      dockerfile: docker-compose/hadoop/Dockerfile
+    image: hadoop-ecommerce-hadoop:latest
+    container_name: datanode3
+    hostname: datanode3
+    environment:
+      - NODE_TYPE=datanode
+    volumes:
+      - ./logs/hadoop/datanode3:/home/hadoop/hadoop/logs
+    depends_on:
+      - namenode
+    networks:
+      - hadoop_network
+
+  datanode4:
+    build:
+      context: .
+      dockerfile: docker-compose/hadoop/Dockerfile
+    image: hadoop-ecommerce-hadoop:latest
+    container_name: datanode4
+    hostname: datanode4
+    environment:
+      - NODE_TYPE=datanode
+    volumes:
+      - ./logs/hadoop/datanode4:/home/hadoop/hadoop/logs
+    depends_on:
+      - namenode
+    networks:
+      - hadoop_network
 
   spark-master:
-    image: bde2020/spark-master:3.1.1-hadoop3.2
+    build:
+      context: .
+      dockerfile: docker-compose/spark/Dockerfile
+    image: hadoop-ecommerce-spark:latest
     container_name: spark-master
-    environment:
-      - INIT_DAEMON_STEP=setup_spark
+    hostname: spark-master
     ports:
-      - "7077:7077"
-      - "8080:8080"
-    networks:
-      - hadoop
-
-  spark-worker:
-    image: bde2020/spark-worker:3.1.1-hadoop3.2
-    container_name: spark-worker
+      - "8080:8080"   # Spark Master web UI
+      - "7077:7077"   # Spark Master port
     environment:
-      - SPARK_MASTER=spark://spark-master:7077
-    depends_on:
-      - spark-master
-    ports:
-      - "8081:8081"
-    networks:
-      - hadoop
-
-  hive-server:
-    image: bde2020/hive:2.3.2-postgresql-metastore
-    container_name: hive-server
-    environment:
-      - HIVE_DB=hive
-      - HIVE_USER=hiveuser
-      - HIVE_PASSWORD=hivepw
-    ports:
-      - "10000:10000"
+      - NODE_TYPE=master
+    volumes:
+      - ./scripts:/scripts
+      - ./logs/spark/master:/home/hadoop/spark/logs
     depends_on:
       - namenode
-      - datanode
+      - resourcemanager
     networks:
-      - hadoop
+      - hadoop_network
+
+  spark-worker1:
+    build:
+      context: .
+      dockerfile: docker-compose/spark/Dockerfile
+    image: hadoop-ecommerce-spark:latest
+    container_name: spark-worker1
+    hostname: spark-worker1
+    ports:
+      - "8081:8081"   # Spark Worker web UI
+    environment:
+      - NODE_TYPE=worker
+      - SPARK_MASTER=spark://spark-master:7077
+    volumes:
+      - ./logs/spark/worker1:/home/hadoop/spark/logs
+    depends_on:
+      - spark-master
+    networks:
+      - hadoop_network
+
+  spark-worker2:
+    build:
+      context: .
+      dockerfile: docker-compose/spark/Dockerfile
+    image: hadoop-ecommerce-spark:latest
+    container_name: spark-worker2
+    hostname: spark-worker2
+    ports:
+      - "8082:8081"   # Spark Worker web UI
+    environment:
+      - NODE_TYPE=worker
+      - SPARK_MASTER=spark://spark-master:7077
+    volumes:
+      - ./logs/spark/worker2:/home/hadoop/spark/logs
+    depends_on:
+      - spark-master
+    networks:
+      - hadoop_network
+
+  hive-server:
+    build:
+      context: .
+      dockerfile: docker-compose/hive/Dockerfile
+    image: hadoop-ecommerce-hive:latest
+    container_name: hive-server
+    hostname: hive-server
+    ports:
+      - "10000:10000"  # HiveServer2 Thrift
+      - "10002:10002"  # HiveServer2 Web UI
+    environment:
+      - NODE_TYPE=server
+    volumes:
+      - ./scripts:/scripts
+      - ./logs/hive:/home/hadoop/hive/logs
+    depends_on:
+      - namenode
+      - resourcemanager
+    networks:
+      - hadoop_network
+
+  hive-metastore-db:
+    image: mysql:8.0
+    container_name: hive-metastore-db
+    hostname: hive-metastore-db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=hadoop
+      - MYSQL_DATABASE=metastore
+      - MYSQL_USER=hive
+      - MYSQL_PASSWORD=hive
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - hadoop_network
 
   nifi:
-    image: apache/nifi:latest
+    build:
+      context: .
+      dockerfile: docker-compose/nifi/Dockerfile
+    image: hadoop-ecommerce-nifi:latest
     container_name: nifi
+    hostname: nifi
     ports:
-      - "8085:8080"
-    networks:
-      - hadoop
-
-  airflow:
-    image: puckel/docker-airflow
-    container_name: airflow
+      - "8443:8443"   # NiFi web UI (HTTPS)
     environment:
-      - LOAD_EX=n
-    ports:
-      - "8089:8080"
+      - NIFI_WEB_HTTPS_PORT=8443
+    volumes:
+      - ./data:/data
+      - ./logs/nifi:/home/hadoop/nifi/logs
+    depends_on:
+      - namenode
     networks:
-      - hadoop
+      - hadoop_network
 
-  atlas:
-    image: apache/atlas:latest
-    container_name: atlas
+  airflow-webserver:
+    build:
+      context: .
+      dockerfile: docker-compose/airflow/Dockerfile
+    image: hadoop-ecommerce-airflow:latest
+    container_name: airflow-webserver
+    hostname: airflow-webserver
     ports:
-      - "21000:21000"
+      - "8180:8080"   # Airflow web UI
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW_COMPONENT=webserver
+    volumes:
+      - ./dags:/home/hadoop/airflow/dags
+      - ./logs/airflow:/home/hadoop/airflow/logs
+    depends_on:
+      - namenode
+      - spark-master
+      - hive-server
     networks:
-      - hadoop
+      - hadoop_network
+
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: docker-compose/airflow/Dockerfile
+    image: hadoop-ecommerce-airflow:latest
+    container_name: airflow-scheduler
+    hostname: airflow-scheduler
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW_COMPONENT=scheduler
+    volumes:
+      - ./dags:/home/hadoop/airflow/dags
+      - ./logs/airflow:/home/hadoop/airflow/logs
+    depends_on:
+      - airflow-webserver
+    networks:
+      - hadoop_network
 
   superset:
-    image: apache/superset
+    image: apache/superset:latest
     container_name: superset
+    hostname: superset
     ports:
-      - "8088:8088"
+      - "8088:8088"   # Superset web UI
+    environment:
+      - SUPERSET_SECRET_KEY=superset_secret
+    volumes:
+      - ./config/superset:/app/superset_config.py
+    depends_on:
+      - hive-server
     networks:
-      - hadoop
-
-volumes:
-  namenode:
-  datanode:
+      - hadoop_network
 
 networks:
-  hadoop:
+  hadoop_network:
     driver: bridge
