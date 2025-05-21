@@ -51,6 +51,7 @@ Sistem menggunakan:
 [![Docker Latest](https://img.shields.io/badge/Docker-Latest-blue?logo=docker)](https://www.docker.com/products/docker-desktop/)   
 
 ## 🔄 Pipeline Proyek
+![Pipeline](./gambar/pipeline.jpeg)
 
 1. **Data Ingestion**: Mengambil data transaksi dan demografi pelanggan menggunakan NiFi/Sqoop ke bronze layer HDFS.
 2. **Data Cleansing**: Membersihkan data dan transformasi pada silver layer dengan PySpark.
@@ -58,7 +59,6 @@ Sistem menggunakan:
 4. **Clustering**: Segmentasi pelanggan menggunakan K-Means di Spark MLlib.
 5. **Data Aggregation**: Menyimpan hasil di gold layer sebagai tabel Hive.
 6. **Visualisasi**: Dashboard Superset untuk menggambarkan karakteristik tiap segmen.
-![Pipeline](./gambar/pipeline.jpeg)
 
 ## 📁 Struktur Direktori
 
