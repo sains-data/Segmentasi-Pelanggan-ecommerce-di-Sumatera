@@ -1,0 +1,36 @@
+{
+  "dashboard_title": "Segmentasi Pelanggan E-Commerce Sumatera",
+  "metadata": {},
+  "position_json": "{}",
+  "slices": [
+    {
+      "slice_name": "Jumlah Pelanggan per Segmen",
+      "viz_type": "pie",
+      "params": {
+        "datasource": "gold_segmentasi_pelanggan__table",
+        "metric": "count",
+        "groupby": ["segment"],
+        "title": "Jumlah Pelanggan per Segmen",
+        "legendType": "scroll",
+        "number_format": ",d",
+        "show_legend": true,
+        "show_labels": true,
+        "label_type": "key_value"
+      }
+    },
+    {
+      "slice_name": "Total Pembelian per Provinsi dan Segmen",
+      "viz_type": "bar",
+      "params": {
+        "datasource": "gold_segmentasi_pelanggan__table",
+        "metrics": ["sum__total_pembayaran"],
+        "groupby": ["provinsi_pelanggan", "segment"],
+        "title": "Total Pembelian per Provinsi dan Segmen",
+        "bar_stacked": true,
+        "show_legend": true,
+        "x_axis_label": "Provinsi",
+        "y_axis_format": ".2s"
+      }
+    }
+  ]
+}

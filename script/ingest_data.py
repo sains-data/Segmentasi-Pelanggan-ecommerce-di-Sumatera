@@ -8,8 +8,8 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 # Konfigurasi sumber data dan target HDFS
-input_path = "data/rawdataset/ecommerce_data.csv"  # Ganti dengan path aktual
-output_path = "/bronzedataset/ecommerce_data.parquet"
+input_path = "data/raw/ecommerce_data.csv"  
+output_path = "data/bronze/ecommerce_data.parquet"
 
 # Cek apakah file input tersedia
 if not os.path.exists(input_path):
