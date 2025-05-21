@@ -118,11 +118,11 @@ Visualisasi dilakukan di Apache Superset. Insight meliputi:
 
 Kelompok 3 - Sains Data ITERA:
 
-* Khoirul Mizan Abdullah - 122450010
-* Kharisa Harvanny - 122450061
-* Feryadi Yulius - 122450087
-* Nabila Zakiyah Zahra - 122450139
-* Yosia Adwily Nainggolan - 121450063
+* <a href="https://github.com/khoirulmizan" target="_blank"> <img src="https://github.com/khoirulmizan.png" width="20" height="20" alt="Khoirul Mizan Abdullah" title="Khoirul Mizan Abdullah" style="border-radius:50%; margin-right:10px;"> </a> Khoirul Mizan Abdullah - 122450010 
+* <a href="https://github.com/kharisahv" target="_blank"> <img src="https://github.com/kharisahv.png" width="20" height="20" alt="Kharisa Harvanny" title="Kharisa Harvanny" style="border-radius:50%; margin-right:10px;"> </a>Kharisa Harvanny - 122450061 
+* <a href="https://github.com/strng-fer" target="_blank"> <img src="https://github.com/strng-fer.png" width="20" height="20" alt="Feryadi Yulius" title="Feryadi Yulius" style="border-radius:50%; margin-right:10px;"> </a> Feryadi Yulius - 122450087 
+* <a href="https://github.com/zeeyachan" target="_blank"> <img src="https://github.com/zeeyachan.png" width="20" height="20" alt="Nabila Zakiyah Zahra" title="Nabila Zakiyah Zahra" style="border-radius:50%; margin-right:10px;"> </a>Nabila Zakiyah Zahra - 122450139 
+* <a href="https://github.com/yosiaadwily" target="_blank"> <img src="https://github.com/yosiaadwily.png" width="20" height="20" alt="Yosia Adwily Nainggolan" title="Yosia Adwily Nainggolan" style="border-radius:50%; margin-right:10px;"> </a> </p> Yosia Adwily Nainggolan - 121450063 
 
 ---
 
