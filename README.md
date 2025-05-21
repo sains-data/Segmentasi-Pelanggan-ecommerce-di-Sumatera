@@ -34,11 +34,9 @@ Sistem menggunakan:
 * **Apache Hive** untuk query dan penyimpanan terstruktur
 * **Apache Airflow & Oozie** untuk orkestrasi workflow
 * **Apache Atlas** untuk data lineage
-* **Superset/PowerBI** untuk visualisasi hasil
+* **Apache Superset/PowerBI** untuk visualisasi hasil
 
 ## 🛠️ Teknologi yang Digunakan
-
-
 
 [![Hadoop 3.4.1](https://img.shields.io/badge/Hadoop-3.4.1-yellow?logo=apachehadoop)](https://hadoop.apache.org/releases.html)   
 [![Spark 3.5.5](https://img.shields.io/badge/Spark-3.5.5-orange?logo=apachespark)](https://spark.apache.org/downloads.html)    
@@ -66,11 +64,11 @@ Sistem menggunakan:
 📁 data/                   # Dataset & hasil pre-processing
 📁 notebooks/              # Notebook eksplorasi & EDA
 📁 scripts/                # Skrip PySpark & pipeline
+📁 config/                 # Konfigurasi lingkungan Hadoop
 📁 airflow_dags/           # DAG Airflow untuk orkestrasi
-📄 docker-compose.yml      # Setup container Hadoop ecosystem
+📄 docker-compose.yml      # Setup container lingkungan Hadoop 
 📁 hive/                   # Query Hive & definisi skema
 📁 visualizations/         # Gambar dashboard & visualisasi
-📁 tests/                  # Unit test pipeline Spark
 📄 README.md               # Dokumentasi proyek
 
 ```
@@ -111,9 +109,9 @@ Dataset terdiri dari 19 kolom yang mencakup informasi transaksi, demografi, loka
 
 Visualisasi dilakukan di Apache Superset. Insight meliputi:
 
-* Segmentasi berdasarkan provinsi
+* Segmentasi berdasarkan demografi pelanggan
 * Nilai pembelian tertinggi per segmen
-* Frekuensi transaksi dan demografi pelanggan
+* Frekuensi transaksi 
 
 ## 👨‍💻 Tim Pengembang
 
