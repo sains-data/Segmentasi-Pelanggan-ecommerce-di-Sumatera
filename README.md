@@ -62,15 +62,16 @@ Sistem menggunakan:
 ## 📁 Struktur Direktori
 
 ```
-├── data/                   # Dataset dan hasil pre-processing
-├── notebooks/              # Notebook eksplorasi awal dan EDA
-├── scripts/                # Skrip PySpark dan pipeline
-├── airflow_dags/          # DAG Airflow untuk orkestrasi
-├── docker-compose.yml     # Setup container Hadoop ecosystem
-├── hive/                  # Query Hive dan definisi skema
-├── visualizations/        # File dashboard/visualisasi
-├── tests/                 # Unit test Spark pipeline
-└── README.md              # Dokumentasi proyek
+📁 data/                   # Dataset & hasil pre-processing
+📁 notebooks/              # Notebook eksplorasi & EDA
+📁 scripts/                # Skrip PySpark & pipeline
+📁 airflow_dags/           # DAG Airflow untuk orkestrasi
+📄 docker-compose.yml      # Setup container Hadoop ecosystem
+📁 hive/                   # Query Hive & definisi skema
+📁 visualizations/         # Gambar dashboard & visualisasi
+📁 tests/                  # Unit test pipeline Spark
+📄 README.md               # Dokumentasi proyek
+
 ```
 
 ## ▶️ Cara Menjalankan
