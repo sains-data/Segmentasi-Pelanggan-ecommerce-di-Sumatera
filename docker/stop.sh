@@ -1,0 +1,1 @@
+docker stop hadoop-ecommerce-base

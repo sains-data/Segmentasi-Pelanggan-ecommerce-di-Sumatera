@@ -6,13 +6,98 @@ import os
 spark = SparkSession.builder \
     .appName("Bronze to Silver ETL") \
     .config("spark.sql.warehouse.dir", "hdfs://namenode:9000/user/hive/warehouse") \
-    .config("hive.metastore.uris", "thrift://hive-server:9083") \
+    .config("hive.metastore.uris", "thrift://hive-server:10000") \
     .enableHiveSupport() \
     .getOrCreate()
 
 # Path HDFS
 bronze_path = "hdfs://namenode:9000/data/bronze"
 silver_path = "hdfs://namenode:9000/data/silver"
+
+# Utility: baca & tulis function
+def cleanse_write(table, df, cols_dedupe=None, filters=None, transforms=None):
+    # apply filters
+    if filters:
+        for f in filters:
+            df = df.filter(f)
+    # apply transforms
+    if transforms:
+        for name, expr in transforms.items():
+            df = df.withColumn(name, expr)
+    # drop duplicates
+    if cols_dedupe:
+        df = df.dropDuplicates(cols_dedupe)
+    # write Parquet overwrite
+    df.write.mode("overwrite").parquet(f"{SILVER}/{table}")
+
+# 1) customers
+df_cust = spark.read.parquet(f"{BRONZE}/customers")
+cleanse_write(
+    "customers", df_cust,
+    cols_dedupe=["id_pelanggan"],
+    filters=[col("provinsi_pelanggan").isNotNull()],
+    transforms={
+      "kota_kabupaten_pelanggan": trim(upper(col("kota_kabupaten_pelanggan"))),
+      "provinsi_pelanggan":       trim(upper(col("provinsi_pelanggan")))
+    }
+)
+
+# 2) products
+df_prod = spark.read.parquet(f"{BRONZE}/products")
+cleanse_write(
+    "products", df_prod,
+    cols_dedupe=["id_produk"],
+    transforms={
+      "kategori_produk": trim(upper(col("kategori_produk")))
+    }
+)
+
+# 3) order_items
+df_oi = spark.read.parquet(f"{BRONZE}/order_items")
+cleanse_write(
+    "order_items", df_oi,
+    filters=[(col("harga") > 0) & (col("jumlah") > 0)],
+    transforms={
+      "total_item": col("harga") * col("jumlah")
+    }
+)
+
+# 4) reviews
+df_rev = spark.read.parquet(f"{BRONZE}/reviews")
+cleanse_write(
+    "reviews", df_rev,
+    filters=[col("nilai_rating_produk").between(1,5)],
+    transforms={
+      "tanggal_review": col("tanggal_review").cast("date")
+    }
+)
+
+# 5) sellers
+df_seller = spark.read.parquet(f"{BRONZE}/sellers")
+cleanse_write(
+    "sellers", df_seller,
+    cols_dedupe=["id_seller"],
+    transforms={
+      "kota_kabupaten_seller": trim(upper(col("kota_kabupaten_seller"))),
+      "provinsi_seller":       trim(upper(col("provinsi_seller")))
+    }
+)
+
+# 6) transactions
+df_tx = spark.read.parquet(f"{BRONZE}/transactions")
+cleanse_write(
+    "transactions", df_tx,
+    filters=[col("total_pembayaran") > 0],
+    transforms={
+      "timestamp_pembelian":        col("timestamp_pembelian").cast("timestamp"),
+      "timestamp_persetujuan_toko": col("timestamp_persetujuan_toko").cast("timestamp"),
+      "timestamp_pengiriman_ke_pelanggan": col("timestamp_pengiriman_ke_pelanggan").cast("timestamp"),
+      "estimasi_sampai":            col("estimasi_sampai").cast("date")
+    }
+)
+
+spark.stop()
+
 
 # Fungsi untuk membaca data dari bronze layer
 def read_bronze_data(table_name):

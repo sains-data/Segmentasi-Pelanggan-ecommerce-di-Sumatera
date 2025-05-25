@@ -1,0 +1,141 @@
+# Langkah 1: Base Image
+FROM ubuntu:24.04
+
+# Langkah 2: Install Dep
+RUN apt-get update && apt-get -y install sudo adduser
+RUN adduser --disabled-password --gecos '' docker
+RUN adduser docker sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+USER root
+
+# Langkah 3: Perbarui APT
+RUN sudo apt-get -y install software-properties-common
+RUN sudo add-apt-repository ppa:openjdk-r/ppa
+RUN sudo apt-get update
+
+# Langkah 4: Install Java
+RUN apt-get -y install openjdk-8-jdk 
+RUN ln -s /usr/lib/jvm/java-1.8.0-openjdk-amd64/ /usr/lib/jvm/java-1.8.0
+
+# Langkah 5: Utility Tools
+RUN apt -y install vim
+RUN apt -y install nano
+RUN apt -y install wget tar sudo rsync
+RUN sudo apt-get update
+RUN sudo apt-get -y install apache2
+RUN sudo apt-get -y install tree
+RUN sudo apt-get install net-tools
+
+# Setup sock proxy
+RUN apt-get install -y  openssh-server
+
+# passwordless ssh
+RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
+RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+RUN chmod 755 /root && chmod 700 /root/.ssh
+RUN passwd --unlock root
+
+# Langkah 6: Copy hadoop tarball and extract
+COPY hadoop-3.4.1.tar.gz /hadoop-3.4.1.tar.gz
+RUN tar -xvzf /hadoop-3.4.1.tar.gz -C /
+RUN ln -sf /hadoop-3.4.1 /hadoop
+
+COPY apache-tez-0.10.4-bin.tar.gz /apache-tez-0.10.4-bin.tar.gz
+RUN tar -xvzf /apache-tez-0.10.4-bin.tar.gz -C /
+RUN ln -sf /apache-tez-0.10.4-bin /tez
+
+COPY apache-hive-4.0.1-bin.tar.gz /apache-hive-4.0.1-bin.tar.gz
+RUN tar -xvzf /apache-hive-4.0.1-bin.tar.gz -C /
+RUN ln -sf /apache-hive-4.0.1-bin /hive
+
+COPY apache-zookeeper-3.8.4-bin.tar.gz /apache-zookeeper-3.8.4-bin.tar.gz
+RUN tar -xvzf /apache-zookeeper-3.8.4-bin.tar.gz -C /
+RUN ln -sf /apache-zookeeper-3.8.4-bin /zookeeper
+
+COPY spark-3.5.5-bin-hadoop3.tgz /spark-3.5.5-bin-hadoop3.tgz
+RUN tar -xvzf /spark-3.5.5-bin-hadoop3.tgz -C /
+RUN ln -sf /spark-3.5.5-bin-hadoop3 /spark
+
+# Langkah 7: Install MySQL dan client
+RUN apt-get update && apt-get -y install mysql-server mysql-client
+
+# Salin MySQL Connector ke direktori Hive
+COPY mysql-connector-java-8.0.28.jar /hive/lib/
+
+RUN  apt-get -y clean all && rm -rf /tmp/* /var/tmp/* 
+
+# Setup sock proxy
+RUN apt-get install -y  openssh-server
+
+RUN  apt-get -y clean all && rm -rf /tmp/* /var/tmp/* 
+
+# Langkah 7: Copy configuration files and bootstrap script
+RUN mkdir /conf
+COPY core-site.xml /conf/core-site.xml
+COPY hdfs-site.xml /conf/hdfs-site.xml
+COPY hadoop-env.sh /conf/hadoop-env.sh
+COPY hive-site.xml /conf/hive-site.xml
+COPY bootstrap.sh /bootstrap.sh
+
+# Langkah 8: Create Users
+RUN sudo addgroup hadoop
+RUN sudo adduser --ingroup hadoop hadoop
+RUN sudo addgroup hive
+RUN sudo adduser --ingroup hive hive
+RUN sudo usermod -a -G hadoop hive
+
+# Langkah 9: Install Python 3.10 (dibutuhkan untuk Airflow 2.6.0)
+RUN apt-get update && apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.10 python3.10-venv python3.10-dev python3-pip && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
+
+# Langkah 10: Install Apache Airflow 2.6.0
+ENV AIRFLOW_VERSION=2.6.0
+ENV PYTHON_VERSION="3.10"
+ENV CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+
+# Langkah 11: Install Apache Sqoop 1.4.7
+COPY sqoop-1.4.7.bin__hadoop260.tar.gz /sqoop-1.4.7.bin__hadoop260.tar.gz
+RUN tar -xvzf /sqoop-1.4.7.bin__hadoop260.tar.gz -C / && \
+    ln -s /sqoop-1.4.7.bin__hadoop260 /sqoop && \
+    mkdir -p /sqoop/lib && \
+    cp /hive/lib/mysql-connector-java-8.0.28.jar /sqoop/lib/
+
+# Langkah 12: Setup Environment Variables
+ENV HADOOP_HOME=/hadoop
+ENV HIVE_HOME=/hive
+ENV SQOOP_HOME=/sqoop
+ENV ZOOKEEPER_HOME=/zookeeper
+ENV SPARK_HOME=/spark
+ENV AIRFLOW_HOME=/airflow
+
+ENV PATH=$HADOOP_HOME/bin:$HIVE_HOME/bin:$SQOOP_HOME/bin:$SPARK_HOME/bin:$PATH
+
+# Langkah 13: Buat direktori untuk Airflow
+RUN mkdir -p /airflow/dags /airflow/logs /airflow/plugins
+
+# HDFS ports
+EXPOSE 1004 1006 8020 9866 9867 9870 9864 50470 9000 50070 9870
+
+# YARN ports
+EXPOSE 8030 8031 8032 8033 8040 8041 8042 8088 10020 19888
+
+# SOCKS port
+EXPOSE 1180
+
+# HDFS datanode
+EXPOSE 9866
+
+# mysql expose
+EXPOSE 3306
+
+# Zookeeper port
+EXPOSE 2181 2888 3888
+
+# SPARK UI port
+EXPOSE 4040

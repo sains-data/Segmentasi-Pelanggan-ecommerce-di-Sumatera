@@ -1,0 +1,21 @@
+informasi port di start.sh
+  9866:9866 \          # HDFS DataNode
+  9870:9870 \          # HDFS NameNode Web UI
+  8088:8088 \          # YARN ResourceManager
+  8030:8030 \          # YARN Scheduler
+  8031:8031 \          # YARN ResourceTracker
+  8032:8032 \          # YARN ResourceManager
+  8033:8033 \          # YARN Admin
+  8042:8042 \          # YARN NodeManager
+  19888:19888 \        # MapReduce JobHistory
+  10000:10000 \        # Hive Metastore
+  10001:10001 \        # HiveServer2
+  10002:10002 \        # Hive Web UI
+  2181:2181 \          # ZooKeeper
+  2888:2888 \          # ZooKeeper peer
+  3888:3888 \          # ZooKeeper leader election
+  16000:16000 \        # HBase Master
+  16010:16010 \        # HBase Master Web UI
+  16020:16020 \        # HBase RegionServer
+  16030:16030 \        # HBase RegionServer Web UI
+  3306:3306 \          # MySQL
