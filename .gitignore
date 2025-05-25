@@ -1,0 +1,52 @@
+# Binary files and archives
+*.tar.gz
+*.tgz
+*.zip
+*.jar
+
+# Log files
+*.log
+logdocker*.txt
+promptclaude.txt
+
+# Documentation files (optional - remove if not needed)
+*.pdf
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Data files (large datasets)
+data/raw/*.csv
+data/raw/*.json
+data/processed/
+data/serving/*/data/
+
+# Hadoop/Spark generated files
+spark/data/
+hive/data/warehouse/
+**/logs/
+
+# Docker volumes data (generated at runtime)
+volumes/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Node modules (if any)
+node_modules/
+
+# Environment files
+.env
+.env.local
