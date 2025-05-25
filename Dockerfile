@@ -73,7 +73,7 @@ RUN  apt-get -y clean all && rm -rf /tmp/* /var/tmp/*
 RUN mkdir /conf
 COPY core-site.xml /conf/core-site.xml
 COPY hdfs-site.xml /conf/hdfs-site.xml
-COPY hadoop-env.sh /conf/hadoop-env.sh
+COPY hadoop_env.sh /conf/hadoop_env.sh
 COPY hive-site.xml /conf/hive-site.xml
 COPY bootstrap.sh /bootstrap.sh
 
