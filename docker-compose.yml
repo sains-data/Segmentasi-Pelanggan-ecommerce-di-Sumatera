@@ -1,6 +1,16 @@
 # docker-compose.yml
 version: '3.8'
 
+x-superset-volumes: &superset-volumes
+  - ./docker:/app/docker
+  - superset_home:/app/superset_home
+
+x-common-build: &common-build
+  context: .
+  target: dev
+  cache_from:
+    - apache/superset-cache:3.10-slim-bookworm
+
 services:
   # ZooKeeper for coordination
   zookeeper:
@@ -270,32 +280,125 @@ services:
       - hive-metastore
 
   # Apache Superset
-  superset-db:
-    image: postgres:13
-    hostname: superset-db
-    container_name: superset-db
-    environment:
-      POSTGRES_DB: superset
-      POSTGRES_USER: superset
-      POSTGRES_PASSWORD: superset123
+  redis:
+    image: redis:7
+    container_name: superset_cache
+    restart: unless-stopped
     volumes:
-      - superset-db:/var/lib/postgresql/data
+      - redis:/data
+    profiles:
+      - visualization
+
+  superset-db:
+    image: postgres:16
+    container_name: superset_db
+    restart: unless-stopped
+    env_file:
+      - path: docker/.env
+        required: true
+      - path: docker/.env-local
+        required: false
+    volumes:
+      - db_home:/var/lib/postgresql/data
+      - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    profiles:
+      - visualization
+
+  superset-init:
+    build:
+      <<: *common-build
+    container_name: superset_init
+    command: ["/app/docker/docker-init.sh"]
+    env_file:
+      - path: docker/.env
+        required: true
+      - path: docker/.env-local
+        required: false
+    depends_on:
+      superset-db:
+        condition: service_started
+      redis:
+        condition: service_started
+    user: "root"
+    volumes: *superset-volumes
+    environment:
+      SUPERSET_LOAD_EXAMPLES: "${SUPERSET_LOAD_EXAMPLES:-yes}"
+      SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
+    healthcheck:
+      disable: true
+    profiles:
+      - visualization
 
   superset:
     build:
-      context: ./dockerfiles/superset
-      dockerfile: Dockerfile
-    hostname: superset
-    container_name: superset
+      <<: *common-build
+    container_name: superset_app
+    command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
+    env_file:
+      - path: docker/.env
+        required: true
+      - path: docker/.env-local
+        required: false
     ports:
       - "8088:8088"
-    environment:
-      - SUPERSET_CONFIG_PATH=/app/superset_config.py
-    volumes:
-      - ./configs/superset:/app/configs:ro
     depends_on:
-      - superset-db
-      - hiveserver2
+      superset-init:
+        condition: service_completed_successfully
+    user: "root"
+    restart: unless-stopped
+    volumes: *superset-volumes
+    environment:
+      SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
+    profiles:
+      - visualization
+
+  superset-worker:
+    build:
+      <<: *common-build
+    container_name: superset_worker
+    command: ["/app/docker/docker-bootstrap.sh", "worker"]
+    env_file:
+      - path: docker/.env
+        required: true
+      - path: docker/.env-local
+        required: false
+    restart: unless-stopped
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+    user: "root"
+    volumes: *superset-volumes
+    environment:
+      SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "celery -A superset.tasks.celery_app:app inspect ping -d celery@$$HOSTNAME"
+        ]
+    profiles:
+      - visualization
+
+  superset-worker-beat:
+    build:
+      <<: *common-build
+    container_name: superset_worker_beat
+    command: ["/app/docker/docker-bootstrap.sh", "beat"]
+    env_file:
+      - path: docker/.env
+        required: true
+      - path: docker/.env-local
+        required: false
+    restart: unless-stopped
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+    user: "root"
+    volumes: *superset-volumes
+    environment:
+      SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
+    healthcheck:
+      disable: true
     profiles:
       - visualization
 
@@ -307,6 +410,9 @@ volumes:
   datanode2-data:
   hive-metastore-db:
   superset-db:
+  superset_home:
+  db_home:
+  redis:
 
 networks:
   default:
