@@ -100,9 +100,9 @@ RUN pip install --upgrade pip setuptools wheel && \
     pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 
 # Langkah 11: Install Apache Sqoop 1.4.7
-COPY sqoop-1.4.7.bin__hadoop260.tar.gz /sqoop-1.4.7.bin__hadoop260.tar.gz
-RUN tar -xvzf /sqoop-1.4.7.bin__hadoop260.tar.gz -C / && \
-    ln -s /sqoop-1.4.7.bin__hadoop260 /sqoop && \
+COPY sqoop-1.4.7.tar.gz /sqoop-1.4.7.tar.gz
+RUN tar -xvzf /sqoop-1.4.7.tar.gz -C / && \
+    ln -s /sqoop-1.4.7 /sqoop && \
     mkdir -p /sqoop/lib && \
     cp /hive/lib/mysql-connector-java-8.0.28.jar /sqoop/lib/
 
