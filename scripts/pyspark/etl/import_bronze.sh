@@ -18,47 +18,31 @@ COMMON_OPTS="--connect ${MYSQL_CONN} \
   --null-string '\\N' --null-non-string '\\N' \
   -m 4"
 
-for tbl in customers products order_items reviews sellers transactions; do
-  TARGET=${BRONZE_BASE}/${tbl}
+# Fungsi untuk mengimpor tabel
+import_table() {
+  local table_name=$1
+  local target_dir="${BRONZE_BASE}/${table_name}"
 
-  # 1) Jika direktori sudah ada, hapus dulu
-  if hdfs dfs -test -d ${TARGET}; then
-    echo ">>> Menghapus existing ${TARGET}"
-    hdfs dfs -rm -r ${TARGET}
+  # Jika direktori sudah ada, hapus dulu
+  if hdfs dfs -test -d ${target_dir}; then
+    echo ">>> Menghapus existing ${target_dir}"
+    hdfs dfs -rm -r ${target_dir}
+  else
+    echo ">>> ${target_dir} tidak ada, melanjutkan..."
   fi
 
-# 1) customers
-sqoop import $COMMON_OPTS \
-  --table customers \
-  --target-dir ${BRONZE_BASE}/customers \
-  --split-by id_pelanggan
+  # Mengimpor tabel
+  echo ">>> Mengimpor tabel ${table_name} ke ${target_dir}"
+  sqoop import $COMMON_OPTS \
+    --table ${table_name} \
+    --target-dir ${target_dir} \
+    --split-by id_pelanggan || { echo "Error importing ${table_name}"; exit 1; }
+}
 
-# 2) products
-sqoop import $COMMON_OPTS \
-  --table products \
-  --target-dir ${BRONZE_BASE}/products \
-  --split-by id_produk
+# Daftar tabel yang akan diimpor
+tables=("customers" "products" "order_items" "reviews" "sellers" "transactions")
 
-# 3) order_items
-sqoop import $COMMON_OPTS \
-  --table order_items \
-  --target-dir ${BRONZE_BASE}/order_items \
-  --split-by id_order
-
-# 4) reviews
-sqoop import $COMMON_OPTS \
-  --table reviews \
-  --target-dir ${BRONZE_BASE}/reviews \
-  --split-by id_pelanggan
-
-# 5) sellers
-sqoop import $COMMON_OPTS \
-  --table sellers \
-  --target-dir ${BRONZE_BASE}/sellers \
-  --split-by id_seller
-
-# 6) transactions
-sqoop import $COMMON_OPTS \
-  --table transactions \
-  --target-dir ${BRONZE_BASE}/transactions \
-  --split-by id_order
+# Mengimpor semua tabel
+for tbl in "${tables[@]}"; do
+  import_table $tbl
+done
