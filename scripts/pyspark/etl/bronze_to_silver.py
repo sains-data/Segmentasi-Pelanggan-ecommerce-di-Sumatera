@@ -121,5 +121,5 @@ def run_etl():
         logging.error(f"ETL process failed: {e}")
 
 # Jalankan ETL
-if _name_ == "_main_":
+if __name__ == "__main__":
     run_etl()
