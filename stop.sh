@@ -1,1 +1,1 @@
-docker stop hadoop-ecommerce-base
+docker stop bigdata-spark

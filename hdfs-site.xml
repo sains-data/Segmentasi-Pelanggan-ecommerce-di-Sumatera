@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>dfs.datanode.address</name>
+        <value>0.0.0.0:9866</value>
+    </property>
+	<!--
+	To by pass
+	Service org.apache.tez.dag.app.DAGAppMaster failed in state INITED; cause: java.lang.NumberFormatException: For input string: “30s”
+	-->
+    <property>
+        <name>dfs.client.datanode-restart.timeout</name>
+        <value>30</value>
+    </property>
+
+    <property>
+        <description>To enable RM web ui2 application.</description>
+        <name>yarn.webapp.ui2.enable</name>
+        <value>true</value>
+     </property>
+</configuration>

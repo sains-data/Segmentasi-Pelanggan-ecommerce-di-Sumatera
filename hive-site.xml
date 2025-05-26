@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:mysql://localhost:3306/metastore?createDatabaseIfNotExist=true</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>com.mysql.cj.jdbc.Driver</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>hive</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>hive</value>
+    </property>
+
+    <!-- for server side -->
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://0.0.0.0:10000</value>
+    </property>
+
+    <property>
+        <name>hive.metastore.event.db.notification.api.auth</name>
+        <value>false</value>
+    </property>
+
+    <!-- For the client support -->
+    <property>
+        <name>hive.support.concurrency</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>hive.exec.dynamic.partition.mode</name>
+        <value>nonstrict</value>
+    </property>
+
+    <property>
+        <name>hive.compactor.initiator.on</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>hive.txn.manager</name>
+        <value>org.apache.hadoop.hive.ql.lockmgr.DbTxnManager</value>
+    </property>
+
+    <!-- Hive server 2 -->
+    <property>
+        <name>hive.server2.thrift.http.port</name>
+        <value>10001</value>
+    </property>
+    
+    <property>
+        <name>hive.server2.thrift.max.worker.threads</name>
+        <value>1000</value>
+    </property>
+	<property>
+        <name>hive.execution.engine</name>
+        <value>tez</value>
+    </property>
+    <property>
+        <name>tez.local.mode</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hive.tez.exec.inplace.progress</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hive.input.format</name>
+        <value>org.apache.hadoop.hive.ql.io.HiveInputFormat</value>
+    </property>
+
+    <!-- https://issues.apache.org/jira/browse/HIVE-19286 -->
+    <property>
+        <name>hive.auto.convert.join</name>
+        <value>false</value>
+    </property>
+
+	<property>
+		<name>hive.stats.autogather</name>
+		<value>false</value>
+	</property>
+
+    <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>datanucleus.fixedDatastore</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>datanucleus.autoCreateTables</name>
+        <value>True</value>
+    </property>
+</configuration>

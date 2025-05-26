@@ -1,5 +1,6 @@
 # Langkah 1: Base Image
 FROM ubuntu:24.04
+LABEL key="sainsdata-itera"
 
 # Langkah 2: Install Dep
 RUN apt-get update && apt-get -y install sudo adduser
@@ -48,6 +49,10 @@ COPY apache-hive-4.0.1-bin.tar.gz /apache-hive-4.0.1-bin.tar.gz
 RUN tar -xvzf /apache-hive-4.0.1-bin.tar.gz -C /
 RUN ln -sf /apache-hive-4.0.1-bin /hive
 
+COPY hbase-2.5.11-bin.tar.gz /hbase-2.5.11-bin.tar.gz
+RUN tar -xvzf /hbase-2.5.11-bin.tar.gz -C /
+RUN ln -sf /hbase-2.5.11-bin /hbase
+
 COPY apache-zookeeper-3.8.4-bin.tar.gz /apache-zookeeper-3.8.4-bin.tar.gz
 RUN tar -xvzf /apache-zookeeper-3.8.4-bin.tar.gz -C /
 RUN ln -sf /apache-zookeeper-3.8.4-bin /zookeeper
@@ -73,8 +78,10 @@ RUN  apt-get -y clean all && rm -rf /tmp/* /var/tmp/*
 RUN mkdir /conf
 COPY core-site.xml /conf/core-site.xml
 COPY hdfs-site.xml /conf/hdfs-site.xml
-COPY hadoop_env.sh /conf/hadoop_env.sh
+COPY hadoop-env.sh /conf/hadoop-env.sh
 COPY hive-site.xml /conf/hive-site.xml
+COPY hbase-site.xml /conf/hbase-site.xml
+COPY hbase-env.sh /conf/hbase-env.sh
 COPY bootstrap.sh /bootstrap.sh
 
 # Langkah 8: Create Users
@@ -83,41 +90,6 @@ RUN sudo adduser --ingroup hadoop hadoop
 RUN sudo addgroup hive
 RUN sudo adduser --ingroup hive hive
 RUN sudo usermod -a -G hadoop hive
-
-# Langkah 9: Install Python 3.10 (dibutuhkan untuk Airflow 2.6.0)
-RUN apt-get update && apt-get install -y software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y python3.10 python3.10-venv python3.10-dev python3-pip && \
-    update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
-
-# Langkah 10: Install Apache Airflow 2.6.0
-ENV AIRFLOW_VERSION=2.6.0
-ENV PYTHON_VERSION="3.10"
-ENV CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-
-RUN pip install --upgrade pip setuptools wheel && \
-    pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
-
-# Langkah 11: Install Apache Sqoop 1.4.7
-COPY sqoop-1.4.7.tar.gz /sqoop-1.4.7.tar.gz
-RUN tar -xvzf /sqoop-1.4.7.tar.gz -C / && \
-    ln -s /sqoop-1.4.7 /sqoop && \
-    mkdir -p /sqoop/lib && \
-    cp /hive/lib/mysql-connector-java-8.0.28.jar /sqoop/lib/
-
-# Langkah 12: Setup Environment Variables
-ENV HADOOP_HOME=/hadoop
-ENV HIVE_HOME=/hive
-ENV SQOOP_HOME=/sqoop
-ENV ZOOKEEPER_HOME=/zookeeper
-ENV SPARK_HOME=/spark
-ENV AIRFLOW_HOME=/airflow
-
-ENV PATH=$HADOOP_HOME/bin:$HIVE_HOME/bin:$SQOOP_HOME/bin:$SPARK_HOME/bin:$PATH
-
-# Langkah 13: Buat direktori untuk Airflow
-RUN mkdir -p /airflow/dags /airflow/logs /airflow/plugins
 
 # HDFS ports
 EXPOSE 1004 1006 8020 9866 9867 9870 9864 50470 9000 50070 9870
@@ -133,6 +105,9 @@ EXPOSE 9866
 
 # mysql expose
 EXPOSE 3306
+
+# HBase ports
+EXPOSE 16000 16010 16020 16030
 
 # Zookeeper port
 EXPOSE 2181 2888 3888

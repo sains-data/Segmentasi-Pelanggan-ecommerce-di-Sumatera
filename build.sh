@@ -1,1 +1,1 @@
-docker build -t hadoop-ecommerce-base .
+docker build -t bigdata-spark .
