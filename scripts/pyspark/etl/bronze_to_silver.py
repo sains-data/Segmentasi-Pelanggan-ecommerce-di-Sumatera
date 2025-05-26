@@ -1,6 +1,9 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, to_timestamp, to_date, when, lit, regexp_replace, trim
-import os
+from pyspark.sql.functions import col, to_timestamp, to_date, when, lit, trim, upper
+import logging
+
+# Inisialisasi logging
+logging.basicConfig(level=logging.INFO)
 
 # Inisialisasi Spark Session
 spark = SparkSession.builder \
@@ -28,85 +31,16 @@ def cleanse_write(table, df, cols_dedupe=None, filters=None, transforms=None):
     if cols_dedupe:
         df = df.dropDuplicates(cols_dedupe)
     # write Parquet overwrite
-    df.write.mode("overwrite").parquet(f"{SILVER}/{table}")
-
-# 1) customers
-df_cust = spark.read.parquet(f"{BRONZE}/customers")
-cleanse_write(
-    "customers", df_cust,
-    cols_dedupe=["id_pelanggan"],
-    filters=[col("provinsi_pelanggan").isNotNull()],
-    transforms={
-      "kota_kabupaten_pelanggan": trim(upper(col("kota_kabupaten_pelanggan"))),
-      "provinsi_pelanggan":       trim(upper(col("provinsi_pelanggan")))
-    }
-)
-
-# 2) products
-df_prod = spark.read.parquet(f"{BRONZE}/products")
-cleanse_write(
-    "products", df_prod,
-    cols_dedupe=["id_produk"],
-    transforms={
-      "kategori_produk": trim(upper(col("kategori_produk")))
-    }
-)
-
-# 3) order_items
-df_oi = spark.read.parquet(f"{BRONZE}/order_items")
-cleanse_write(
-    "order_items", df_oi,
-    filters=[(col("harga") > 0) & (col("jumlah") > 0)],
-    transforms={
-      "total_item": col("harga") * col("jumlah")
-    }
-)
-
-# 4) reviews
-df_rev = spark.read.parquet(f"{BRONZE}/reviews")
-cleanse_write(
-    "reviews", df_rev,
-    filters=[col("nilai_rating_produk").between(1,5)],
-    transforms={
-      "tanggal_review": col("tanggal_review").cast("date")
-    }
-)
-
-# 5) sellers
-df_seller = spark.read.parquet(f"{BRONZE}/sellers")
-cleanse_write(
-    "sellers", df_seller,
-    cols_dedupe=["id_seller"],
-    transforms={
-      "kota_kabupaten_seller": trim(upper(col("kota_kabupaten_seller"))),
-      "provinsi_seller":       trim(upper(col("provinsi_seller")))
-    }
-)
-
-# 6) transactions
-df_tx = spark.read.parquet(f"{BRONZE}/transactions")
-cleanse_write(
-    "transactions", df_tx,
-    filters=[col("total_pembayaran") > 0],
-    transforms={
-      "timestamp_pembelian":        col("timestamp_pembelian").cast("timestamp"),
-      "timestamp_persetujuan_toko": col("timestamp_persetujuan_toko").cast("timestamp"),
-      "timestamp_pengiriman_ke_pelanggan": col("timestamp_pengiriman_ke_pelanggan").cast("timestamp"),
-      "estimasi_sampai":            col("estimasi_sampai").cast("date")
-    }
-)
-
-spark.stop()
-
+    df.write.mode("overwrite").parquet(f"{silver_path}/{table}")
 
 # Fungsi untuk membaca data dari bronze layer
 def read_bronze_data(table_name):
-    print(f"Reading {table_name} data from bronze layer...")
+    logging.info(f"Reading {table_name} data from bronze layer...")
     return spark.read.option("header", "true").option("inferSchema", "true").csv(f"{bronze_path}/{table_name}")
 
 # Fungsi untuk membersihkan data pelanggan
 def clean_customers(df):
-    print("Cleaning customers data...")
+    logging.info("Cleaning customers data...")
     return df.withColumn("kode_pos_pelanggan", 
                        when(col("kode_pos_pelanggan").isNull(), lit("00000"))
                        .otherwise(col("kode_pos_pelanggan"))) \
@@ -116,29 +50,29 @@ def clean_customers(df):
 
 # Fungsi untuk membersihkan data produk
 def clean_products(df):
-    print("Cleaning products data...")
+    logging.info("Cleaning products data...")
     return df.withColumn("harga", col("harga").cast("double")) \
             .dropDuplicates(["id_produk"]) \
             .withColumn("kategori_produk", trim(col("kategori_produk")))
 
 # Fungsi untuk membersihkan data transaksi
 def clean_transactions(df):
-    print("Cleaning transactions data...")
+    logging.info("Cleaning transactions data...")
     return df.withColumn("total_pembayaran", col("total_pembayaran").cast("double")) \
             .withColumn("banyak_cicilan", col("banyak_cicilan").cast("int")) \
             .withColumn("timestamp_pembelian", to_timestamp(col("timestamp_pembelian"), "yyyy-MM-dd HH:mm:ss")) \
             .withColumn("timestamp_persetujuan_toko", to_timestamp(col("timestamp_persetujuan_toko"), "yyyy-MM-dd HH:mm:ss")) \
             .withColumn("timestamp_pengiriman_ke_pelanggan", 
-                      when(col("timestamp_pengiriman_ke_pelanggan").isNull(), lit(None)) \
+                      when(col("timestamp_pengiriman_ke_pelanggan").isNull(), None) \
                       .otherwise(to_timestamp(col("timestamp_pengiriman_ke_pelanggan"), "yyyy-MM-dd HH:mm:ss"))) \
             .withColumn("estimasi_sampai", 
-                      when(col("estimasi_sampai").isNull(), lit(None)) \
+                      when(col("estimasi_sampai").isNull(), None) \
                       .otherwise(to_date(col("estimasi_sampai"), "yyyy-MM-dd"))) \
             .dropDuplicates(["id_order"])
 
 # Fungsi untuk membersihkan data order items
 def clean_order_items(df):
-    print("Cleaning order items data...")
+    logging.info("Cleaning order items data...")
     return df.withColumn("harga", col("harga").cast("double")) \
             .withColumn("jumlah", col("jumlah").cast("int")) \
             .withColumn("total_item", col("total_item").cast("double")) \
@@ -146,43 +80,46 @@ def clean_order_items(df):
 
 # Fungsi untuk membersihkan data review
 def clean_reviews(df):
-    print("Cleaning reviews data...")
+    logging.info("Cleaning reviews data...")
     return df.withColumn("nilai_rating_produk", col("nilai_rating_produk").cast("float")) \
             .withColumn("tanggal_review", to_date(col("tanggal_review"), "yyyy-MM-dd")) \
             .dropDuplicates(["id_pelanggan", "id_produk"])
 
 # Fungsi untuk menyimpan data ke silver layer
 def save_to_silver(df, table_name):
-    print(f"Saving {table_name} data to silver layer...")
+    logging.info(f"Saving {table_name} data to silver layer...")
     df.write.mode("overwrite").parquet(f"{silver_path}/{table_name}")
 
 # Main ETL Process
 def run_etl():
-    # Baca data dari bronze layer
-    customers_df = read_bronze_data("customers")
-    products_df = read_bronze_data("products")
-    transactions_df = read_bronze_data("transactions")
-    order_items_df = read_bronze_data("order_items")
-    reviews_df = read_bronze_data("reviews")
-    sellers_df = read_bronze_data("sellers")
-    
-    # Bersihkan data
-    customers_clean = clean_customers(customers_df)
-    products_clean = clean_products(products_df)
-    transactions_clean = clean_transactions(transactions_df)
-    order_items_clean = clean_order_items(order_items_df)
-    reviews_clean = clean_reviews(reviews_df)
-    
-    # Simpan data ke silver layer
-    save_to_silver(customers_clean, "customers")
-    save_to_silver(products_clean, "products")
-    save_to_silver(transactions_clean, "transactions")
-    save_to_silver(order_items_clean, "order_items")
-    save_to_silver(reviews_clean, "reviews")
-    save_to_silver(sellers_df, "sellers")  # Sellers tidak perlu dibersihkan karena sudah bersih
-    
-    print("Bronze to Silver ETL completed!")
+    try:
+        # Baca data dari bronze layer
+        customers_df = read_bronze_data("customers")
+        products_df = read_bronze_data("products")
+        transactions_df = read_bronze_data("transactions")
+        order_items_df = read_bronze_data("order_items")
+        reviews_df = read_bronze_data("reviews")
+        sellers_df = read_bronze_data("sellers")
+        
+        # Bersihkan data
+        customers_clean = clean_customers(customers_df)
+        products_clean = clean_products(products_df)
+        transactions_clean = clean_transactions(transactions_df)
+        order_items_clean = clean_order_items(order_items_df)
+        reviews_clean = clean_reviews(reviews_df)
+        
+        # Simpan data ke silver layer
+        save_to_silver(customers_clean, "customers")
+        save_to_silver(products_clean, "products")
+        save_to_silver(transactions_clean, "transactions")
+        save_to_silver(order_items_clean, "order_items")
+        save_to_silver(reviews_clean, "reviews")
+        save_to_silver(sellers_df, "sellers")  # Sellers tidak perlu dibersihkan karena sudah bersih
+        
+        logging.info("Bronze to Silver ETL completed!")
+    except Exception as e:
+        logging.error(f"ETL process failed: {e}")
 
 # Jalankan ETL
-if __name__ == "__main__":
+if _name_ == "_main_":
     run_etl()
