@@ -45,7 +45,7 @@ Sistem menggunakan:
 
 ## 🔄 Pipeline Proyek
 
-1. **Data Ingestion**: Mengambil data transaksi dan demografi pelanggan menggunakan NiFi/Sqoop ke bronze layer HDFS.
+1. **Data Ingestion**: Mengambil data transaksi dan demografi pelanggan ke bronze layer HDFS.
 2. **Data Cleansing**: Membersihkan data dan transformasi pada silver layer dengan PySpark.
 3. **Data Enrichment**: Menambahkan atribut demografi dan menghitung metrik pelanggan.
 4. **Clustering**: Segmentasi pelanggan menggunakan K-Means di Spark MLlib.
