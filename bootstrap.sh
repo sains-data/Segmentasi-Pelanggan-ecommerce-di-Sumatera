@@ -66,7 +66,6 @@ cp /conf/core-site.xml /hadoop/etc/hadoop
 cp /conf/hdfs-site.xml /hadoop/etc/hadoop
 cp /conf/hadoop-env.sh /hadoop/etc/hadoop
 cp /conf/hive-site.xml /hive/conf/
-
 cp /mysql-connector-java-8.0.28.jar /hive/lib
 
 gprn "set up mysql"

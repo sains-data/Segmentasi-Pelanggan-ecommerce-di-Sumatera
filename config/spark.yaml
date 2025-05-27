@@ -1,7 +1,0 @@
-# config/spark.yaml
-spark:
-  app_name: "ECommerce-Segmentation-Analysis"
-  master: "local[*]"
-  executor_memory: "2g"
-  driver_memory: "1g"
-  sql_warehouse_dir: "/spark-warehouse"
