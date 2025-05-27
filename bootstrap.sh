@@ -13,7 +13,9 @@ gprn() {
 	echoe "${eg} >> ${1}${enc}"
 }
 
+
 ## Setup ENV variables
+
 export JAVA_HOME="/usr/lib/jvm/java-1.8.0"
 export HDFS_NAMENODE_USER="root"
 export HDFS_SECONDARYNAMENODE_USER="root"

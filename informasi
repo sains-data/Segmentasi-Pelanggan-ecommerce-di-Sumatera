@@ -1,5 +1,4 @@
 informasi port di start.sh
-  9000:9000 \          # HDFS Namenode
   9866:9866 \          # HDFS DataNode
   9870:9870 \          # HDFS NameNode Web UI
   8088:8088 \          # YARN ResourceManager
