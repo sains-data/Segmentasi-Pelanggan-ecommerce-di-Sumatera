@@ -1,1 +1,1 @@
-docker exec -it bigdata-spark "/bin/bash"
+docker exec -it bigdata-ecommerce "/bin/bash"

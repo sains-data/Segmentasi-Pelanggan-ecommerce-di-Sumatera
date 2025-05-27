@@ -1,1 +1,1 @@
-docker stop bigdata-spark
+docker stop bigdata-ecommerce

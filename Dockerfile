@@ -48,10 +48,6 @@ COPY apache-hive-4.0.1-bin.tar.gz /apache-hive-4.0.1-bin.tar.gz
 RUN tar -xvzf /apache-hive-4.0.1-bin.tar.gz -C /
 RUN ln -sf /apache-hive-4.0.1-bin /hive
 
-COPY hbase-2.5.11-bin.tar.gz /hbase-2.5.11-bin.tar.gz
-RUN tar -xvzf /hbase-2.5.11-bin.tar.gz -C /
-RUN ln -sf /hbase-2.5.11-bin /hbase
-
 COPY apache-zookeeper-3.8.4-bin.tar.gz /apache-zookeeper-3.8.4-bin.tar.gz
 RUN tar -xvzf /apache-zookeeper-3.8.4-bin.tar.gz -C /
 RUN ln -sf /apache-zookeeper-3.8.4-bin /zookeeper
@@ -79,8 +75,6 @@ COPY core-site.xml /conf/core-site.xml
 COPY hdfs-site.xml /conf/hdfs-site.xml
 COPY hadoop-env.sh /conf/hadoop-env.sh
 COPY hive-site.xml /conf/hive-site.xml
-COPY hbase-site.xml /conf/hbase-site.xml
-COPY hbase-env.sh /conf/hbase-env.sh
 COPY bootstrap.sh /bootstrap.sh
 
 # Langkah 8: Create Users
@@ -104,9 +98,6 @@ EXPOSE 9866
 
 # mysql expose
 EXPOSE 3306
-
-# HBase ports
-EXPOSE 16000 16010 16020 16030
 
 # Zookeeper port
 EXPOSE 2181 2888 3888
