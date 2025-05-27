@@ -42,7 +42,7 @@ def main():
         config = yaml.safe_load(file)
     
     tables = ['customers', 'products', 'order_items', 'sellers', 'reviews', 'transactions']
-    hdfs_base_path = "/data/ecommerce"
+    hdfs_base_path = "/data/bronze"
     
     for table in tables:
         ingest_table_to_bronze(spark, table, config['mysql'], hdfs_base_path)

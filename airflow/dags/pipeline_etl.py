@@ -22,21 +22,22 @@ with DAG(
 
     # 1) Ingest raw ke Bronze
     t1 = BashOperator(
-        task_id='import_bronze',
-        bash_command='/usr/local/bin/import_bronze.sh'
+        task_id='mysql_to_hdfs',
+        application='/opt/src/ingestion/mysql_to_hdfs.py',
+        conn_id='yarn_default'
     )
 
     # 2) Clean ke Silver
     t2 = SparkSubmitOperator(
         task_id='clean_silver',
-        application='/opt/airflow/scripts/bronze_to_silver.py',
+        application='/opt/src/processing/bronze_to_silver.py',
         conn_id='yarn_default'
     )
 
     # 3) Segmentasi → Gold
     t3 = SparkSubmitOperator(
         task_id='gold_segmentation',
-        application='/opt/airflow/scripts/enhanced_segmentation.py',
+        application='/opt/src/analytics/segmentation.py',
         conn_id='yarn_default'
     )
 
