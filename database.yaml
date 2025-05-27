@@ -1,0 +1,11 @@
+# config/database.yaml
+mysql:
+  host: "localhost"  # Your XAMPP MySQL host
+  port: 3306
+  database: "ecommerce_sumatera"
+  username: "root"
+  password: ""  # Default XAMPP password
+
+hdfs:
+  base_path: "/data/ecommerce"
+  namenode: "hdfs://localhost:9000"

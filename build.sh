@@ -1,1 +1,1 @@
-docker build -t bigdata-spark .
+docker build -t bigdata-ecommerce .

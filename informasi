@@ -1,4 +1,5 @@
 informasi port di start.sh
+  9000:9000 \          # HDFS Namenode
   9866:9866 \          # HDFS DataNode
   9870:9870 \          # HDFS NameNode Web UI
   8088:8088 \          # YARN ResourceManager
@@ -14,8 +15,4 @@ informasi port di start.sh
   2181:2181 \          # ZooKeeper
   2888:2888 \          # ZooKeeper peer
   3888:3888 \          # ZooKeeper leader election
-  16000:16000 \        # HBase Master
-  16010:16010 \        # HBase Master Web UI
-  16020:16020 \        # HBase RegionServer
-  16030:16030 \        # HBase RegionServer Web UI
   3306:3306 \          # MySQL

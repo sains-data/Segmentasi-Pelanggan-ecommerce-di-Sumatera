@@ -13,9 +13,7 @@ gprn() {
 	echoe "${eg} >> ${1}${enc}"
 }
 
-
 ## Setup ENV variables
-
 export JAVA_HOME="/usr/lib/jvm/java-1.8.0"
 export HDFS_NAMENODE_USER="root"
 export HDFS_SECONDARYNAMENODE_USER="root"
@@ -37,10 +35,6 @@ export TEZ_CONF_DIR=/hive/conf/
 export HIVE_HOME="/hive"
 export PATH=$PATH:$HIVE_HOME/bin
 
-# step 9: Hbase configs
-export HBASE_HOME="/hbase"
-export PATH=$PATH:$HBASE_HOME/bin
-
 # Step 10: Spark configs
 export SPARK_HOME="/spark/"
 export PATH=$PATH:$SPARK_HOME/bin
@@ -55,8 +49,6 @@ echo 'export HADOOP_CLASSPATH="$TEZ_HOME/*:$TEZ_HOME/lib/*:$HADOOP_CLASSPATH"' >
 echo 'export TEZ_CONF_DIR="/hive/conf/"' >> ~/.bashrc
 echo 'export HIVE_HOME="/hive"' >> ~/.bashrc
 echo 'export PATH=$PATH:$HIVE_HOME/bin' >> ~/.bashrc
-echo 'export HBASE_HOME="/hbase"' >> ~/.bashrc
-echo 'export PATH=$PATH:$HBASE_HOME/bin' >> ~/.bashrc
 echo 'export SPARK_HOME="/spark/"' >> ~/.bashrc
 echo 'export PATH=$PATH:$SPARK_HOME/bin' >> ~/.bashrc
 
@@ -64,7 +56,6 @@ rm /hadoop
 ln -sf /hadoop-3.4.1 /hadoop
 ln -sf /apache-hive-4.0.1-bin /hive
 ln -sf /apache-tez-0.10.4-bin /tez
-ln -sf /hbase-2.5.11 /hbase
 ln -sf /apache-zookeeper-3.8.4-bin /zookeeper
 ln -sf /spark-3.5.5-bin-hadoop3 /spark
 
@@ -73,9 +64,6 @@ cp /conf/core-site.xml /hadoop/etc/hadoop
 cp /conf/hdfs-site.xml /hadoop/etc/hadoop
 cp /conf/hadoop-env.sh /hadoop/etc/hadoop
 cp /conf/hive-site.xml /hive/conf/
-cp /conf/hbase-site.xml /hbase/conf/
-cp /conf/hbase-env.sh /hbase/conf/
-
 
 cp /mysql-connector-java-8.0.28.jar /hive/lib
 
@@ -112,9 +100,6 @@ $ZOOKEEPER_HOME/bin/zkServer.sh start
 
 # Wait for Zookeeper to start
 sleep 10
-
-gprn "Start HBase"
-hbase/bin/start-hbase.sh
 
 gprn "Set up metastore DB"
 hive/bin/schematool -userName hive -passWord 'hive' -dbType mysql -initSchema
