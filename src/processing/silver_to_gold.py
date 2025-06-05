@@ -45,10 +45,13 @@ def create_customer_metrics(transactions_df, order_items_df, customers_df):
             count(expr("distinct id_produk")).alias("jumlah_produk_berbeda")
         ) \
         .withColumn("nilai_belanja", round(col("total_belanja"), 2))
+
     latest = transactions_df.groupBy("id_pelanggan") \
         .agg(expr("max(timestamp_pembelian)").alias("last_purchase_date"))
+
     cust_metrics = cust_metrics.join(latest, on="id_pelanggan", how="left") \
         .join(customers_df, on="id_pelanggan", how="left")
+
     win = Window.orderBy(desc("nilai_belanja"))
     cust_metrics = cust_metrics.withColumn("segmen_nilai", ntile(4).over(win)) \
         .withColumn("segmen_pelanggan",
@@ -68,6 +71,7 @@ def create_product_metrics(order_items_df, products_df):
             _avg("harga").alias("harga_rata_rata")
         ) \
         .join(products_df, on="id_produk", how="left")
+
     win = Window.partitionBy("kategori_produk").orderBy(desc("jumlah_terjual"))
     prod_metrics = prod_metrics.withColumn(
         "peringkat_dalam_kategori",
@@ -78,6 +82,7 @@ def create_product_metrics(order_items_df, products_df):
 def create_regional_metrics(customers_df, customer_metrics):
     print("▶ Creating regional metrics")
     reg = customers_df.join(customer_metrics, on="id_pelanggan", how="inner")
+    
     province = reg.groupBy("provinsi_pelanggan") \
         .agg(
             count("id_pelanggan").alias("jumlah_pelanggan"),
@@ -85,6 +90,7 @@ def create_regional_metrics(customers_df, customer_metrics):
             _avg("nilai_belanja").alias("rata_rata_belanja_provinsi")
         ) \
         .withColumn("rata_rata_belanja_provinsi", round(col("rata_rata_belanja_provinsi"), 2))
+
     city = reg.groupBy("provinsi_pelanggan", "kota_kabupaten_pelanggan") \
         .agg(
             count("id_pelanggan").alias("jumlah_pelanggan"),
@@ -92,6 +98,7 @@ def create_regional_metrics(customers_df, customer_metrics):
             _avg("nilai_belanja").alias("rata_rata_belanja_kota")
         ) \
         .withColumn("rata_rata_belanja_kota", round(col("rata_rata_belanja_kota"), 2))
+
     return province, city
 
 def save_to_gold(df, name):
@@ -104,9 +111,6 @@ def run_etl():
     products     = read_silver_data("products")
     transactions = read_silver_data("transactions")
     order_items  = read_silver_data("order_items")
-    # reviews & sellers tidak dipakai langsung di Gold, bisa di-drop atau pakai untuk analisis lanjutan
-    # reviews      = read_silver_data("reviews")
-    # sellers      = read_silver_data("sellers")
 
     # Hitung metrics
     tx_metrics      = create_transaction_metrics(transactions, order_items)
@@ -123,7 +127,7 @@ def run_etl():
 
     # Juga buat Hive tables untuk analisis SQL
     spark.sql("CREATE DATABASE IF NOT EXISTS ecommerce_analytics")
-    for tbl in ["transaction_metrics","customer_metrics","product_metrics","province_metrics","city_metrics"]:
+    for tbl in ["transaction_metrics", "customer_metrics", "product_metrics", "province_metrics", "city_metrics"]:
         spark.sql(f"""
             CREATE TABLE IF NOT EXISTS ecommerce_analytics.{tbl}
             USING PARQUET
